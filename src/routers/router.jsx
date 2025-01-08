@@ -10,8 +10,8 @@ import UserDashboard from "../layouts/UserDashboard/UserDashboard";
 import Profile from "../layouts/UserDashboard/Profile";
 import AccountStatus from "../layouts/UserDashboard/AccountStatus";
 import Transactions from "../layouts/UserDashboard/Transactions";
-import CreditRequest from "../layouts/UserDashboard/CreditRequest";
 import ErrorPage from "../pages/ErrorPage/ErrorPage";
+import CreditPage from "../layouts/UserDashboard/CreditPage";
 
 const router = createBrowserRouter([
     {
@@ -61,7 +61,7 @@ const router = createBrowserRouter([
             },
             {
                 path: 'credit',
-                element: <CreditRequest/>,
+                element: <CreditPage/>,
             }
         ]
     }
