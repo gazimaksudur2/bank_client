@@ -11,12 +11,13 @@ import Profile from "../layouts/UserDashboard/Profile";
 import AccountStatus from "../layouts/UserDashboard/AccountStatus";
 import Transactions from "../layouts/UserDashboard/Transactions";
 import CreditRequest from "../layouts/UserDashboard/CreditRequest";
+import ErrorPage from "../pages/ErrorPage/ErrorPage";
 
 const router = createBrowserRouter([
     {
         path: "/",
         element: <MainLayout />,
-        errorElement: <div>Not Found</div>,
+        errorElement: <ErrorPage/>,
         children: [
             {
                 index: true,

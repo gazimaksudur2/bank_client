@@ -31,7 +31,7 @@ const Navbar = () => {
                                     strokeWidth="2"
                                     d="M4 6h16M4 12h16M4 18h7" />
                             </svg> */}
-                            <img className='h-6 w-6' src="https://cdn-icons-png.flaticon.com/128/3798/3798305.png" alt="bank logo" />
+                            <img className='h-8 w-8' src="https://cdn-icons-png.flaticon.com/128/3798/3798305.png" alt="bank logo" />
                         </div>
                         <ul
                             tabIndex={0}
@@ -59,7 +59,7 @@ const Navbar = () => {
                                     className="menu dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
                                     <li><a>{user.displayName}</a></li>
                                     <li><a>
-                                        <Link to={'/dashboard'}>
+                                        <Link to={'/dashboard/profile'}>
                                             Dashboard
                                         </Link>
                                     </a></li>
