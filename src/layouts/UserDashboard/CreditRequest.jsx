@@ -29,10 +29,13 @@ const CreditRequest = () => {
             <div className='p-6'>
                 <section class="flex flex-col max-w-4xl bg-white rounded-lg shadow-lg md:flex-row">
                     <div class="md:flex md:items-center md:justify-center md:bg-gray-700 rounded-l-lg">
-                        <div class="px-6 py-6 md:px-8 md:py-0">
-                            <h2 class="text-lg font-bold text-gray-700 md:text-gray-100">Credit on your own <span class="text-blue-600 md:text-blue-300">Pace</span> whenever you want</h2>
+                        <div class="w-full flex flex-col items-center justify-center gap-5">
+                            <img className='w-44 mask mask-squircle' src="https://img.freepik.com/free-vector/top-up-credit-concept-illustration_114360-7244.jpg?uid=R113556208&ga=GA1.1.1491027022.1736420044&semt=ais_hybrid" alt="credit_img" />
+                            <div className='w-full px-6 py-6 md:px-8 md:py-0'>
+                                <h2 class="text-lg font-bold text-gray-700 md:text-gray-100">Credit on your own <span class="text-blue-600 md:text-blue-300">Pace</span> whenever you want</h2>
 
-                            <p class="mt-2 text-sm text-gray-600 md:text-gray-400">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Consectetur obcaecati odio</p>
+                                <p class="mt-2 text-sm text-gray-600 md:text-gray-400">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Consectetur obcaecati odio</p>
+                            </div>
                         </div>
                     </div>
 

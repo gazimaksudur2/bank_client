@@ -22,3 +22,74 @@ resources
 16. FET
 17. GEE
 18. OCG
+
+
+payment 
+https://img.freepik.com/free-vector/payment-information-concept-illustration_114360-2886.jpg?uid=R113556208&ga=GA1.1.1491027022.1736420044&semt=ais_hybrid
+
+sendmoney
+https://img.freepik.com/free-vector/transfer-money-concept-illustration_114360-3762.jpg?uid=R113556208&ga=GA1.1.1491027022.1736420044&semt=ais_hybrid
+
+
+### 1. **Make Payment**  
+**Title:** "Pay Securely"  
+**Description:** Instantly pay bills or merchants securely.  
+**Form Fields:**  
+- Payment Amount  
+- Payee Name/ID  
+- Payment Method  
+- Notes (Optional)  
+
+---
+
+### 2. **Send Money**  
+**Title:** "Transfer Funds"  
+**Description:** Easily send money to friends or family.  
+**Form Fields:**  
+- Recipient Name/Account  
+- Transfer Amount  
+- Transfer Method  
+- Purpose (Optional)  
+
+---
+
+### 3. **Request Money**  
+**Title:** "Request Funds"  
+**Description:** Ask for money seamlessly from others.  
+**Form Fields:**  
+- Requester’s Name  
+- Amount Requested  
+- Reason/Purpose  
+- Deadline (Optional)  
+
+---
+
+### 4. **Withdraw Money**  
+**Title:** "Cash Out"  
+**Description:** Withdraw funds to your linked account or wallet.  
+**Form Fields:**  
+- Withdrawal Amount  
+- Account/Wallet Details  
+- Authentication Method  
+
+---
+
+### 5. **Credit Request**  
+**Title:** "Apply for Credit"  
+**Description:** Request credit for personal or business needs.  
+**Form Fields:**  
+- Amount Requested  
+- Credit Purpose  
+- Repayment Period  
+- Income/Financial Details  
+
+---
+
+### 6. **Transactions**  
+**Title:** "Transaction History"  
+**Description:** View details of past financial activities.  
+**Form Fields:**  
+- Date Range  
+- Transaction Type (Credit/Debit)  
+- Amount Range (Optional)  
+- Keywords (Optional)  

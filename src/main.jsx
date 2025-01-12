@@ -6,12 +6,15 @@ import { RouterProvider } from 'react-router-dom'
 import router from './routers/router.jsx'
 import AuthProvider from './providers/AuthProvider.jsx'
 import { ToastContainer } from 'react-toastify';
+import OverlayLoading from './layouts/OverlayLoading/OverlayLoading.jsx'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <AuthProvider>
-      <RouterProvider router={router} />
-      <ToastContainer />
-    </AuthProvider>
+    <OverlayLoading>
+      <AuthProvider>
+        <RouterProvider router={router} />
+        <ToastContainer />
+      </AuthProvider>
+    </OverlayLoading>
   </StrictMode>,
 )
