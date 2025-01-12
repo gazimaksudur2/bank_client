@@ -4,6 +4,7 @@ import SendMoney from './SendMoney';
 import RequestMoney from './RequestMoney';
 import WithdrawMoney from './WithdrawMoney';
 import Payment from './Payment';
+import Requests from './Requests';
 
 const AccountFeatures = () => {
     const [activeTab, setActiveTab] = React.useState('send_money');
@@ -37,6 +38,12 @@ const AccountFeatures = () => {
                                         Make Payment
                                     </button>
                                 </Tab>
+
+                                <Tab>
+                                    <button onClick={() => setActiveTab('requests')} class={activeTab === 'requests' ? "px-5 py-2 text-xs font-medium text-gray-600 transition-colors duration-200 bg-gray-100 sm:text-sm" : "px-5 py-2 text-xs font-medium text-gray-600 transition-colors duration-200 sm:text-sm hover:bg-gray-100"}>
+                                        Others Requests
+                                    </button>
+                                </Tab>
                             </div>
                         </TabList>
                     </div>
@@ -56,6 +63,9 @@ const AccountFeatures = () => {
                                     </TabPanel>
                                     <TabPanel>
                                         <Payment/>
+                                    </TabPanel>
+                                    <TabPanel>
+                                        <Requests/>
                                     </TabPanel>
                                 </div>
                             </div>

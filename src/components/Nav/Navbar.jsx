@@ -60,7 +60,12 @@ const Navbar = () => {
                                     <li><a>{user.displayName}</a></li>
                                     <li><a>
                                         <Link to={'/dashboard/profile'}>
-                                            Dashboard
+                                            User Dashboard
+                                        </Link>
+                                    </a></li>
+                                    <li><a>
+                                        <Link to={'/admin/profile'}>
+                                            Admin Dashboard
                                         </Link>
                                     </a></li>
                                     <li><a onClick={handleLogout}>Logout</a></li>

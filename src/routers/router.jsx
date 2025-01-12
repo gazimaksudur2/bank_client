@@ -12,6 +12,10 @@ import AccountStatus from "../layouts/UserDashboard/AccountStatus";
 import Transactions from "../layouts/UserDashboard/Transactions";
 import ErrorPage from "../pages/ErrorPage/ErrorPage";
 import CreditPage from "../layouts/UserDashboard/CreditPage";
+import AdminDashboard from "../layouts/AdminDashboard/AdminDashboard";
+import AdminProfile from "../layouts/AdminDashboard/AdminProfile";
+import CreditRequests from "../layouts/AdminDashboard/CreditRequests/CreditRequests";
+import AllTransactions from "../layouts/AdminDashboard/Transactions/AllTransactions";
 
 const router = createBrowserRouter([
     {
@@ -56,12 +60,30 @@ const router = createBrowserRouter([
                 element: <AccountStatus/>,
             },
             {
-                path: 'transactions',
-                element: <Transactions/>,
-            },
-            {
                 path: 'credit',
                 element: <CreditPage/>,
+            },
+            {
+                path: 'transactions',
+                element: <Transactions/>,
+            }
+        ]
+    },
+    {
+        path: '/admin',
+        element: <AdminDashboard/>,
+        children: [
+            {
+                path: 'profile',
+                element: <AdminProfile/>
+            },
+            {
+                path: 'credit_reqs',
+                element: <CreditRequests/>
+            },
+            {
+                path: 'transactions',
+                element: <AllTransactions/>
             }
         ]
     }

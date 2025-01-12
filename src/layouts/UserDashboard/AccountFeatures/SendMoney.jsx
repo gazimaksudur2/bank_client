@@ -6,6 +6,7 @@ import useClockLoader from '../../../hooks/useClockLoader';
 const SendMoney = () => {
     const [info, setInfo] = useState({});
     const setLoader = useClockLoader();
+    
     const handleSubmit = e => {
         e.preventDefault();
         const data = new FormData(e.target);
