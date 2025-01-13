@@ -16,6 +16,8 @@ import AdminDashboard from "../layouts/AdminDashboard/AdminDashboard";
 import AdminProfile from "../layouts/AdminDashboard/AdminProfile";
 import CreditRequests from "../layouts/AdminDashboard/CreditRequests/CreditRequests";
 import AllTransactions from "../layouts/AdminDashboard/Transactions/AllTransactions";
+import Users from "../layouts/AdminDashboard/Users/Users";
+import BankStatus from "../layouts/AdminDashboard/BankStatus/BankStatus";
 
 const router = createBrowserRouter([
     {
@@ -76,6 +78,14 @@ const router = createBrowserRouter([
             {
                 path: 'profile',
                 element: <AdminProfile/>
+            },
+            {
+                path: 'bank_status',
+                element: <BankStatus/>,
+            },
+            {
+                path: 'users',
+                element: <Users/>,
             },
             {
                 path: 'credit_reqs',

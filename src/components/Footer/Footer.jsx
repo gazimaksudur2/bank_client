@@ -5,8 +5,9 @@ const Footer = () => {
         <footer class="bg-white">
             <div class="container px-6 py-8 mx-auto">
                 <div class="flex flex-col items-center text-center">
-                    <a href="#">
-                        <img class="w-auto h-7" src="https://merakiui.com/images/full-logo.svg" alt="" />
+                    <a href="#" className='flex flex-col items-center gap-2'>
+                        <img class="w-auto h-7" src="https://cdn-icons-png.flaticon.com/128/3798/3798305.png" alt="" />
+                        <h2>Easy PVT LTD.</h2>
                     </a>
 
                     <div class="flex flex-wrap justify-center mt-6 -mx-4">
@@ -26,7 +27,7 @@ const Footer = () => {
                 <hr class="my-6 border-gray-200 md:my-10" />
 
                 <div class="flex flex-col items-center sm:flex-row sm:justify-between">
-                    <p class="text-sm text-gray-500">© Copyright 2021. All Rights Reserved.</p>
+                    <p class="text-sm text-gray-500">{`© Copyright ${new Date().toLocaleDateString().slice(6)}. All Rights Reserved.`}</p>
 
                     <div class="flex -mx-2">
                         <a href="#" class="mx-2 text-gray-600 transition-colors duration-300 hover:text-blue-500" aria-label="Reddit">

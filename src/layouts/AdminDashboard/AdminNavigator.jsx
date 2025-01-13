@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { FaCreditCard } from 'react-icons/fa';
+import { BsBank } from 'react-icons/bs';
+import { FaCreditCard, FaUsers } from 'react-icons/fa';
 import { GrTransaction } from 'react-icons/gr';
 import { MdOutlineAdminPanelSettings } from 'react-icons/md';
 import { Link } from 'react-router-dom';
@@ -12,10 +13,12 @@ const AdminNavigator = () => {
         const path = window.location.pathname;
         if(path.includes('profile')){
             setActiveTab('profile');
-        }else if(path.includes('account')){
-            setActiveTab('account');
-        }else if(path.includes('credit')){
-            setActiveTab('credit');
+        }else if(path.includes('bank_status')){
+            setActiveTab('bank_status');
+        }else if(path.includes('users')){
+            setActiveTab('users');
+        }else if(path.includes('credit_reqs')){
+            setActiveTab('credit_reqs');
         }else if(path.includes('transactions')){
             setActiveTab('transactions');
         }
@@ -50,6 +53,18 @@ const AdminNavigator = () => {
                             <MdOutlineAdminPanelSettings size={25}/>
 
                             <span class="mx-4 font-medium">Admin Profile</span>
+                        </Link>
+
+                        <Link to={'/admin/bank_status'} onClick={()=>setClicked(!clicked)} className={activeTab==='bank_status'?"flex items-center px-4 py-2 mt-5 text-gray-700 bg-gray-100 rounded-md":"flex items-center px-4 py-2 mt-5 text-gray-600 transition-colors duration-300 transform rounded-md hover:bg-gray-100 hover:text-gray-700"} href="#">
+                            <BsBank size={25}/>
+
+                            <span class="mx-4 font-medium">Bank Status</span>
+                        </Link>
+
+                        <Link to={'/admin/users'} onClick={()=>setClicked(!clicked)} className={activeTab==='users'?"flex items-center px-4 py-2 mt-5 text-gray-700 bg-gray-100 rounded-md":"flex items-center px-4 py-2 mt-5 text-gray-600 transition-colors duration-300 transform rounded-md hover:bg-gray-100 hover:text-gray-700"} href="#">
+                            <FaUsers size={25}/>
+
+                            <span class="mx-4 font-medium">Users</span>
                         </Link>
 
                         <Link to={'/admin/credit_reqs'} onClick={()=>setClicked(!clicked)} className={activeTab==='credit_reqs'?"flex items-center px-4 py-2 mt-5 text-gray-700 bg-gray-100 rounded-md":"flex items-center px-4 py-2 mt-5 text-gray-600 transition-colors duration-300 transform rounded-md hover:bg-gray-100 hover:text-gray-700"} href="#">
