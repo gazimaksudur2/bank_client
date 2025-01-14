@@ -2,49 +2,135 @@ import React, { useState } from 'react';
 import { CiPaperplane } from 'react-icons/ci';
 import Swal from 'sweetalert2';
 import useClockLoader from '../../../hooks/useClockLoader';
+import useAuthDB from '../../../hooks/useAuthDB';
+import useAxiosPublic from '../../../hooks/useAxiosPublic';
 
 const SendMoney = () => {
     const [info, setInfo] = useState({});
+    const { userDB, refetch } = useAuthDB();
     const setLoader = useClockLoader();
-    
+    const axiosPublic = useAxiosPublic();
+
     const handleSubmit = e => {
         e.preventDefault();
         const data = new FormData(e.target);
-        const recipent = data.get('name');
+        const recipent = data.get('name').trim();
         const email = data.get('email');
         const account_no = data.get('account_no');
         const amount = data.get('amount');
-        setInfo({ recipent, email, account_no, amount });
-        document.getElementById('my_modal_1').showModal()
+
+        setInfo({ sender: userDB?.accountInfo?.account_no, recipent, receiver_email: email, account_no, amount });
+        if (!userDB?.accountInfo) {
+            Swal.fire({
+                position: "center",
+                icon: "error",
+                title: "Failed!!",
+                text: "Your account is not initiated",
+                showConfirmButton: false,
+                timer: 1500
+            });
+            return;
+        }
+        document.getElementById('my_modal_1').showModal();
+
     }
 
     const handleSendMoney = () => {
+        setLoader(true);
         // e.preventDefault();
         // const security = new FormData(e.target).get('security');
         // console.log("Security Key: ", info?.security);
-        console.log(info);
-
-        setLoader(true);
-        setTimeout(()=>{
+        // console.log(info);
+        if (parseInt(info?.security) != parseInt(userDB?.accountInfo?.security)) {
+            Swal.fire({
+                position: "center",
+                icon: "error",
+                title: "Failed!!",
+                text: "Security Key invalid",
+                showConfirmButton: false,
+                timer: 1500
+            });
             setLoader(false);
-            if (!true) {
-                Swal.fire({
-                    position: "center",
-                    icon: "success",
-                    title: "Send Money Successful",
-                    showConfirmButton: false,
-                    timer: 1500
-                });
-            }else {
+            return;
+        } else if (info?.account_no === userDB?.accountInfo?.account_no) {
+            Swal.fire({
+                position: "center",
+                icon: "error",
+                title: "Failed!!",
+                text: "You can't sent to your own account",
+                showConfirmButton: false,
+                timer: 1500
+            });
+            setLoader(false);
+            return;
+        } else if (info?.amount <= 0) {
+            Swal.fire({
+                position: "center",
+                icon: "error",
+                title: "Failed!!",
+                text: "This amount is not applicable",
+                showConfirmButton: false,
+                timer: 1500
+            });
+            setLoader(false);
+            return;
+        }
+        axiosPublic.post('/account/sendmoney', info)
+            .then(res => {
+                console.log(res);
+                if (res?.data?.message) {
+                    Swal.fire({
+                        position: "center",
+                        icon: "error",
+                        title: "Transaction Failed!!",
+                        text: res?.data?.message,
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+                } else if (res?.data?.insertedId) {
+                    Swal.fire({
+                        position: "center",
+                        icon: "success",
+                        title: "Sucess!!",
+                        text: "Send Money Completed",
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+                    refetch();
+                }
+            })
+            .catch(err => {
+                console.log("from error " + err?.response);
                 Swal.fire({
                     position: "center",
                     icon: "error",
                     title: "Transaction Failed!!",
+                    text: "Server having issues with transaction",
                     showConfirmButton: false,
                     timer: 1500
-                  });
-            }
-        },3000);
+                });
+            })
+        // setTimeout(()=>{
+        //     setLoader(false);
+        //     if (!true) {
+        //         Swal.fire({
+        //             position: "center",
+        //             icon: "success",
+        //             title: "Send Money Successful",
+        //             showConfirmButton: false,
+        //             timer: 1500
+        //         });
+        //     }else {
+        //         Swal.fire({
+        //             position: "center",
+        //             icon: "error",
+        //             title: "Transaction Failed!!",
+        //             showConfirmButton: false,
+        //             timer: 1500
+        //           });
+        //     }
+        // },3000);
+        setLoader(false);
     }
 
     const modalDialog = <dialog id="my_modal_1" className="modal">

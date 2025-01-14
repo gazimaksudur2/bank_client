@@ -1,27 +1,64 @@
 import React from 'react';
 import { Bounce, toast } from 'react-toastify';
+import useAxiosPublic from '../../hooks/useAxiosPublic';
+import useAuthDB from '../../hooks/useAuthDB';
+import Swal from 'sweetalert2';
 
 const CreditRequest = () => {
+    const axiosPublic = useAxiosPublic();
+    const { userDB } = useAuthDB();
     const handleSubmit = (e) => {
         e.preventDefault();
         const data = new FormData(e.target);
         // console.log(data);
         const name = data.get('name');
         const account_no = data.get('account_no');
-        const password = data.get('password');
+        const security = data.get('security');
         const amount = data.get('amount');
-        console.log(name, account_no, password, amount);
-        toast.success('🦄 Wow so easy!', {
-            position: "top-right",
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: false,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "light",
-            transition: Bounce,
-        });
+        // console.log(name, account_no, security, amount);
+        if (account_no != userDB?.accountInfo?.account_no) {
+            Swal.fire({
+                title: 'Try again!!',
+                text: 'Account No. is not matching or invalid!',
+                icon: 'error',
+                showConfirmButton: false,
+                timer: 2000,
+            });
+            return;
+        }else if(security!= userDB?.accountInfo?.security){
+            Swal.fire({
+                title: 'Try again!!',
+                text: 'Account security key invalid!',
+                icon: 'error',
+                showConfirmButton: false,
+                timer: 2000,
+            });
+            return;
+        }
+        axiosPublic.post('account/credit', { account_no, amount })
+            .then(res => {
+                Swal.fire({
+                    title: 'Great job!!',
+                    text: 'credit request sent successfully!',
+                    icon: 'success',
+                    showConfirmButton: false,
+                    timer: 2000,
+                });
+            })
+            .catch(err=> {
+                console.log(err?.message);
+            })
+        // toast.success('🦄 Wow so easy!', {
+        //     position: "top-right",
+        //     autoClose: 5000,
+        //     hideProgressBar: false,
+        //     closeOnClick: false,
+        //     pauseOnHover: true,
+        //     draggable: true,
+        //     progress: undefined,
+        //     theme: "light",
+        //     transition: Bounce,
+        // });
     }
     return (
         <div className='p-6'>
@@ -53,8 +90,8 @@ const CreditRequest = () => {
                                 </div>
 
                                 <div>
-                                    <label class="text-gray-700" for="password">Password</label>
-                                    <input name="password" type="password" class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 focus:outline-none focus:ring" />
+                                    <label class="text-gray-700" for="security">Security Key</label>
+                                    <input name="security" type="password" class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 focus:outline-none focus:ring" />
                                 </div>
                                 <div>
                                     <label class="text-gray-700" for="password">Credit Amount</label>

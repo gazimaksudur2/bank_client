@@ -1,29 +1,70 @@
 import React, { useEffect, useState } from 'react';
 import { BsBank } from 'react-icons/bs';
+import { CiLogout } from 'react-icons/ci';
 import { FaCreditCard, FaUsers } from 'react-icons/fa';
 import { GrTransaction } from 'react-icons/gr';
 import { MdOutlineAdminPanelSettings } from 'react-icons/md';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import useAuth from '../../hooks/useAuth';
+import Swal from 'sweetalert2';
 
 const AdminNavigator = () => {
+    const { logOut, user } = useAuth();
     const [activeTab, setActiveTab] = useState('profile');
     const [clicked, setClicked] = useState(false);
+    const navigate = useNavigate();
 
     useEffect(() => {
         const path = window.location.pathname;
-        if(path.includes('profile')){
+        if (path.includes('profile')) {
             setActiveTab('profile');
-        }else if(path.includes('bank_status')){
+        } else if (path.includes('bank_status')) {
             setActiveTab('bank_status');
-        }else if(path.includes('users')){
+        } else if (path.includes('users')) {
             setActiveTab('users');
-        }else if(path.includes('credit_reqs')){
+        } else if (path.includes('credit_reqs')) {
             setActiveTab('credit_reqs');
-        }else if(path.includes('transactions')){
+        } else if (path.includes('transactions')) {
             setActiveTab('transactions');
         }
         // console.log(activeTab);
-    }, [ clicked ]);
+    }, [clicked]);
+
+    const handleLogout = () => {
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You will be logged out!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, Log out!"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                logOut()
+                    .then(() => {
+                        // console.log(res);
+                        // console.log(result);
+                        Swal.fire({
+                            title: "logged out!",
+                            text: "Your account successfully logged out.",
+                            icon: "success"
+                        });
+                        navigate('/');
+                    })
+                    .catch(err => {
+                        console.log(err)
+                        if (err) {
+                            Swal.fire({
+                                title: "error occured!",
+                                text: err?.message,
+                                icon: "error"
+                            });
+                        }
+                    });
+            }
+        });
+    }
 
     return (
         <div>
@@ -49,31 +90,31 @@ const AdminNavigator = () => {
 
                 <div class="flex flex-col justify-between flex-1 mt-6">
                     <nav>
-                        <Link to={'/admin/profile'} onClick={()=>setClicked(!clicked)} className={activeTab==='profile'?"flex items-center px-4 py-2 mt-5 text-gray-700 bg-gray-100 rounded-md":"flex items-center px-4 py-2 mt-5 text-gray-600 transition-colors duration-300 transform rounded-md hover:bg-gray-100 hover:text-gray-700"} href="#">
-                            <MdOutlineAdminPanelSettings size={25}/>
+                        <Link to={'/admin/profile'} onClick={() => setClicked(!clicked)} className={activeTab === 'profile' ? "flex items-center px-4 py-2 mt-5 text-gray-700 bg-gray-100 rounded-md" : "flex items-center px-4 py-2 mt-5 text-gray-600 transition-colors duration-300 transform rounded-md hover:bg-gray-100 hover:text-gray-700"} href="#">
+                            <MdOutlineAdminPanelSettings size={25} />
 
                             <span class="mx-4 font-medium">Admin Profile</span>
                         </Link>
 
-                        <Link to={'/admin/bank_status'} onClick={()=>setClicked(!clicked)} className={activeTab==='bank_status'?"flex items-center px-4 py-2 mt-5 text-gray-700 bg-gray-100 rounded-md":"flex items-center px-4 py-2 mt-5 text-gray-600 transition-colors duration-300 transform rounded-md hover:bg-gray-100 hover:text-gray-700"} href="#">
-                            <BsBank size={25}/>
+                        <Link to={'/admin/bank_status'} onClick={() => setClicked(!clicked)} className={activeTab === 'bank_status' ? "flex items-center px-4 py-2 mt-5 text-gray-700 bg-gray-100 rounded-md" : "flex items-center px-4 py-2 mt-5 text-gray-600 transition-colors duration-300 transform rounded-md hover:bg-gray-100 hover:text-gray-700"} href="#">
+                            <BsBank size={25} />
 
                             <span class="mx-4 font-medium">Bank Status</span>
                         </Link>
 
-                        <Link to={'/admin/users'} onClick={()=>setClicked(!clicked)} className={activeTab==='users'?"flex items-center px-4 py-2 mt-5 text-gray-700 bg-gray-100 rounded-md":"flex items-center px-4 py-2 mt-5 text-gray-600 transition-colors duration-300 transform rounded-md hover:bg-gray-100 hover:text-gray-700"} href="#">
-                            <FaUsers size={25}/>
+                        <Link to={'/admin/users'} onClick={() => setClicked(!clicked)} className={activeTab === 'users' ? "flex items-center px-4 py-2 mt-5 text-gray-700 bg-gray-100 rounded-md" : "flex items-center px-4 py-2 mt-5 text-gray-600 transition-colors duration-300 transform rounded-md hover:bg-gray-100 hover:text-gray-700"} href="#">
+                            <FaUsers size={25} />
 
                             <span class="mx-4 font-medium">Users</span>
                         </Link>
 
-                        <Link to={'/admin/credit_reqs'} onClick={()=>setClicked(!clicked)} className={activeTab==='credit_reqs'?"flex items-center px-4 py-2 mt-5 text-gray-700 bg-gray-100 rounded-md":"flex items-center px-4 py-2 mt-5 text-gray-600 transition-colors duration-300 transform rounded-md hover:bg-gray-100 hover:text-gray-700"} href="#">
+                        <Link to={'/admin/credit_reqs'} onClick={() => setClicked(!clicked)} className={activeTab === 'credit_reqs' ? "flex items-center px-4 py-2 mt-5 text-gray-700 bg-gray-100 rounded-md" : "flex items-center px-4 py-2 mt-5 text-gray-600 transition-colors duration-300 transform rounded-md hover:bg-gray-100 hover:text-gray-700"} href="#">
                             <FaCreditCard size={20} />
 
                             <span class="mx-4 font-medium">Credit Requests</span>
                         </Link>
 
-                        <Link to={'/admin/transactions'} onClick={()=>setClicked(!clicked)} className={activeTab==='transactions'?"flex items-center px-4 py-2 mt-5 text-gray-700 bg-gray-100 rounded-md":"flex items-center px-4 py-2 mt-5 text-gray-600 transition-colors duration-300 transform rounded-md hover:bg-gray-100 hover:text-gray-700"} href="#">
+                        <Link to={'/admin/transactions'} onClick={() => setClicked(!clicked)} className={activeTab === 'transactions' ? "flex items-center px-4 py-2 mt-5 text-gray-700 bg-gray-100 rounded-md" : "flex items-center px-4 py-2 mt-5 text-gray-600 transition-colors duration-300 transform rounded-md hover:bg-gray-100 hover:text-gray-700"} href="#">
                             <GrTransaction size={20} />
 
                             <span class="mx-4 font-medium">Transactions</span>
@@ -99,10 +140,16 @@ const AdminNavigator = () => {
                         </a> */}
                     </nav>
 
-                    <a href="#" class="flex items-center px-4 -mx-2">
-                        <img class="object-cover mx-2 rounded-full h-9 w-9" src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2.25&w=256&h=256&q=80" alt="avatar" />
-                        <span class="mx-2 font-medium text-gray-800">Michael Simbal</span>
-                    </a>
+                    <div className='flex flex-col items-start gap-6'>
+                        <a href="#" class="flex items-center px-4 -mx-2">
+                            <img class="object-cover mx-2 rounded-full h-9 w-9" src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2.25&w=256&h=256&q=80" alt="avatar" />
+                            <span class="mx-2 font-medium text-gray-800">Michael Simbal</span>
+                        </a>
+                        <button onClick={handleLogout} class="btn w-full btn-ghost border-2 border-gray-400">
+                            <CiLogout size={25} />
+                            <h2>Logout</h2>
+                        </button>
+                    </div>
                 </div>
             </aside>
         </div>

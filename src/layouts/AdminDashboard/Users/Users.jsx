@@ -26,8 +26,8 @@ const Users = () => {
                         All User
                     </button>
 
-                    <button onClick={()=>setRange('admin')} class={range==='admin'?"px-5 py-2 text-xs font-medium text-gray-600 transition-colors duration-200 bg-gray-100 sm:text-sm":"px-5 py-2 text-xs font-medium text-gray-600 transition-colors duration-200 sm:text-sm hover:bg-gray-100"}>
-                        Admin Panel
+                    <button onClick={()=>setRange('organization')} class={range==='organization'?"px-5 py-2 text-xs font-medium text-gray-600 transition-colors duration-200 bg-gray-100 sm:text-sm":"px-5 py-2 text-xs font-medium text-gray-600 transition-colors duration-200 sm:text-sm hover:bg-gray-100"}>
+                        Organizations
                     </button>
 
                     <button onClick={()=>setRange('general')} class={range==='general'?"px-5 py-2 text-xs font-medium text-gray-600 transition-colors duration-200 bg-gray-100 sm:text-sm":"px-5 py-2 text-xs font-medium text-gray-600 transition-colors duration-200 sm:text-sm hover:bg-gray-100"}>

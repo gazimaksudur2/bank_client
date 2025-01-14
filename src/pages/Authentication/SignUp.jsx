@@ -12,13 +12,6 @@ const SignUp = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         const data = new FormData(e.target);
-        // const img_hosting_api = `https://api.imgbb.com/1/upload?key=${process.env.VITE_IMGBB_API_KEY}&expiration=600`;
-        // const img_data = formData.get('profile');
-        // let profile_img;
-        // if(img_data.length){
-        //     const res = await axiosPublic(img_hosting_api,{ image: img_data[0] }, { headers: { 'Content-Type': 'multipart/form-data' } });
-        //     profile_img = res.data.data.display_url;
-        // }
         if (data.get('password') !== data.get('confirm_pass')) {
             Swal.fire({
                 title: "Password Mismatch!",
@@ -28,28 +21,40 @@ const SignUp = () => {
             return;
         }
         const userinfo = {
-            username: data.get('name'),
+            name: data.get('name'),
             email: data.get('email'),
+            photo: 'https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png?20150327203541',
             password: data.get('password'),
             provider: null,
             role: 'general',
-            createdAt: new Date().toISOString().slice(0, 10),
+            createdAt: new Date().toISOString(),
             // profile_img
         };
         axiosPublic.post('/users', userinfo)
             .then(res => {
                 // console.log(res.data);
-                if (res.data.insertedId) {
+                if(res.data.exists){
+                    console.log('User Exists');
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'SignUp Failed',
+                        text: 'User already Exists with this email',
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+                } else if (res.data.insertedId) {
                     createUser(userinfo.email, userinfo.password)
                         .then(res => {
                             // console.log(res);
-                            updateUser(userinfo.name)
+                            updateUser(userinfo.name, userinfo?.photo)
                                 .then(() => {
                                     // console.log('profile updated successfully!!');
                                     Swal.fire({
                                         title: "Great job!",
                                         text: "User Created Successfully!",
-                                        icon: "success"
+                                        icon: "success",
+                                        showConfirmButton: false,
+                                        timer: 1500
                                     });
                                     navigate('/');
                                 })
@@ -60,18 +65,27 @@ const SignUp = () => {
                                         text: error.message,
                                         icon: "warning"
                                     });
-                                    navigate('/');
                                 })
                         })
                         .catch(error => {
                             // console.log(error.message);
                             Swal.fire({
-                                title: "Unfortunately!",
+                                title: "Unfortunately firebase Error!",
                                 text: error.message,
                                 icon: "warning"
                             });
+                            axiosPublic.delete(`/users?email=${userinfo?.email}`)
+                            .then(res=>{
+                                console.log('inaccurate user deleted ' + userinfo?.email);
+                            })
+                            .catch(er=>{
+                                console.log("error occured!!");
+                            })
                         })
                 }
+            })
+            .catch(err=>{
+                console.log(err?.message);
             })
     }
     

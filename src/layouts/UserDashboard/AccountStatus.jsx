@@ -3,9 +3,11 @@ import { CiDollar } from 'react-icons/ci';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import { TbTransactionDollar } from 'react-icons/tb';
 import AccountFeatures from './AccountFeatures/AccountFeatures';
+import useAuthDB from '../../hooks/useAuthDB';
 
 const AccountStatus = () => {
     const [viewable, setViewable] = React.useState(false);
+    const { userDB } = useAuthDB();
     // useEffect(() => {
     //     setTimeout(() => {
     //         setViewable(false);
@@ -26,7 +28,7 @@ const AccountStatus = () => {
                     <CiDollar size={35} />
                     <div className='flex flex-col'>
                         <div className='flex items-center justify-between gap-2'>
-                            <h2 className='text-2xl font-semibold '>$ {viewable ? 405 : <span className='text-lg '>****</span>}</h2>
+                            <h2 className='text-2xl font-semibold '>$ {viewable ? (userDB?.accountInfo ? userDB?.accountInfo?.balance : <span className='text-sm font-thin'>Not initiated</span>) : <span className='text-lg '>****</span>}</h2>
                             {
                                 !viewable ? <FaEye size={20} onClick={handleViewable} className='' /> : <FaEyeSlash size={22} onClick={() => setViewable(false)} className='' />
                             }
