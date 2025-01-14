@@ -3,10 +3,11 @@ import AllTransaction from './AllTransaction';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import InTransaction from './InTransaction';
 import OutTransaction from './OutTransaction';
+import useTransactions from '../../hooks/useTransactions';
 
 const Transactions = () => {
     const [activeTab, setActiveTab] = React.useState('all');
-
+    const { transactions, refetch } = useTransactions();
     // useEffect(() => {
     //     if (activeTab === 'all') {
     //         console.log('all');
@@ -16,6 +17,8 @@ const Transactions = () => {
     //         console.log('out');
     //     }
     // }, [activeTab]);
+    // console.log(transactions);
+
     return (
         <div>
             <section class="container px-4 mx-auto">
@@ -24,7 +27,7 @@ const Transactions = () => {
                         <div class="flex items-center gap-x-3">
                             <h2 class="text-lg font-medium text-gray-800">Your Transactions</h2>
 
-                            <span class="px-3 py-1 text-xs text-blue-600 bg-blue-100 rounded-full">240 vendors</span>
+                            <span class="px-3 py-1 text-xs text-blue-600 bg-blue-100 rounded-full">{transactions?.length} pcs</span>
                         </div>
 
                         <p class="mt-1 text-sm text-gray-500">These companies have purchased in the last 12 months.</p>
@@ -96,13 +99,13 @@ const Transactions = () => {
                             <div class="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
                                 <div class="overflow-hidden border border-gray-200 md:rounded-lg">
                                     <TabPanel>
-                                        <AllTransaction />
+                                        <AllTransaction transactions={transactions}/>
                                     </TabPanel>
                                     <TabPanel>
-                                        <InTransaction />
+                                        <InTransaction transactions={transactions}/>
                                     </TabPanel>
                                     <TabPanel>
-                                        <OutTransaction />
+                                        <OutTransaction transactions={transactions}/>
                                     </TabPanel>
                                 </div>
                         </div>

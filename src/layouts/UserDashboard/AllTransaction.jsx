@@ -2,7 +2,8 @@ import React from 'react';
 import TransactionRow from './TransactionRow';
 import { HiDownload } from 'react-icons/hi';
 
-const AllTransaction = () => {
+const AllTransaction = ({transactions}) => {
+    // console.log(transactions);
     return (
         <table class="min-w-full divide-y divide-gray-200">
             <thead class="bg-gray-50">
@@ -29,7 +30,7 @@ const AllTransaction = () => {
                     </th>
 
                     <th scope="col" class="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500">
-                        Status
+                        Transaction Type
                     </th>
 
                     <th scope="col" class="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500">
@@ -38,7 +39,7 @@ const AllTransaction = () => {
 
 
                     <th scope="col" class="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500">
-                        Transaction Type
+                        Account Status
                     </th>
 
                     <th scope="col" class="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500">
@@ -50,12 +51,9 @@ const AllTransaction = () => {
                 </tr>
             </thead>
             <tbody class="bg-white divide-y divide-gray-200">
-                <TransactionRow />
-                <TransactionRow />
-                <TransactionRow />
-                <TransactionRow />
-                <TransactionRow />
-                <TransactionRow />
+                {
+                    transactions?.map(transaction=><TransactionRow transaction={transaction}/>)
+                }
             </tbody>
         </table>
     );
