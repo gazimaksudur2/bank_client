@@ -69,11 +69,11 @@ const Navbar = () => {
                                             User Dashboard
                                         </Link>
                                     </a></li>
-                                    <li><a>
+                                    {/* <li><a>
                                         <Link to={'/admin/profile'}>
                                             Admin Dashboard
                                         </Link>
-                                    </a></li>
+                                    </a></li> */}
                                     <li><a onClick={handleLogout}>Logout</a></li>
                                 </ul>
                             </div>
