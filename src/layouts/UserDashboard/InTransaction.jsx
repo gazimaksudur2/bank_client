@@ -53,7 +53,7 @@ const InTransaction = ({ transactions }) => {
             </thead>
             <tbody class="bg-white divide-y divide-gray-200">
                 {
-                    intransactions?.map(transaction=><TransactionRow transaction={transaction}/>)
+                    intransactions?.slice(-6)?.map(transaction=><TransactionRow transaction={transaction}/>)
                 }
             </tbody>
         </table>

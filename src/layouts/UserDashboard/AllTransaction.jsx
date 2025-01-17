@@ -52,7 +52,7 @@ const AllTransaction = ({transactions}) => {
             </thead>
             <tbody class="bg-white divide-y divide-gray-200">
                 {
-                    transactions?.map(transaction=><TransactionRow transaction={transaction}/>)
+                    transactions?.slice(-6)?.map(transaction=><TransactionRow transaction={transaction}/>)
                 }
             </tbody>
         </table>

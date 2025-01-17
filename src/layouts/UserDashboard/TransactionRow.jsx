@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { CiInboxIn, CiInboxOut } from 'react-icons/ci';
 import useAxiosPublic from '../../hooks/useAxiosPublic';
+import useAuthDB from '../../hooks/useAuthDB';
 
 const TransactionRow = ({ transaction }) => {
     const [person, setPerson] = useState();
+    const { userDB } = useAuthDB();
     const axiosPublic = useAxiosPublic();
     useEffect(() => {
         if (transaction?.txn_type == 'send_money' || transaction?.txn_type == 'payment') {
@@ -44,7 +46,7 @@ const TransactionRow = ({ transaction }) => {
                 </div>
             </td>
             {
-                (transaction?.txn_type == 'send_money' || transaction?.txn_type == 'payment') ? <>
+                (transaction?.txn_type == 'send_money' || (transaction?.txn_type == 'payment' && transaction?.sender == userDB?.accountInfo?.account_no)) ? <>
                     <td class="px-4 py-4 text-sm font-medium text-gray-700 whitespace-nowrap">
                         <div class="inline-flex items-center px-3 py-1 text-red-500 rounded-full gap-x-2 bg-red-100/60">
                             <CiInboxOut size={25} />

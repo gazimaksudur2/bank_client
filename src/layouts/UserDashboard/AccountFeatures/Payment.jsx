@@ -15,7 +15,7 @@ const Payment = () => {
         const receiver_email = data.get('receiver_email');
         const sender_account_no = data.get('sender_account_no');
         const amount = data.get('amount');
-        setInfo({ receiver_account_name, receiver_email, sender_account_no, sender_email: userDB?.email, amount });
+        setInfo({ receiver_account_name, receiver_email, sender_account_no, sender_email: userDB?.email, amount, security: info.security });
         document.getElementById('my_modal_1').showModal();
     }
 
